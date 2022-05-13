@@ -7,7 +7,7 @@ const AvailableSlots = ({ date }) => {
     const [treatment, setTreatment] = useState(null)
 
     useEffect(() => {
-        fetch("service.json")
+        fetch("http://localhost:5000/service")
             .then(res => res.json())
             .then(data => setServices(data))
     }, [])
@@ -16,7 +16,7 @@ const AvailableSlots = ({ date }) => {
 
     return (
         <div>
-            <h2 className='text-xl text-secondary font-bold text-center hidden lg:block mb-5'>Available slots for Teeth Orthodontics.</h2>
+            <h2 className='text-xl text-secondary font-bold text-center hidden lg:block my-10'>Available slots for Teeth Orthodontics.</h2>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
                 {
                     services.map(service =>
