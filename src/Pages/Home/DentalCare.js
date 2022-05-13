@@ -7,7 +7,7 @@ const DentalCare = () => {
         <div className="hero min-h-screen mb-10">
             <div className="hero-content grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-12">
                 <div>
-                    <img className='rounded' src={treatment} />
+                    <img className='rounded' alt='' src={treatment} />
                 </div>
                 <div>
                     <h1 className="text-4xl font-bold">Exceptional Dental Care, on Your Terms</h1>
