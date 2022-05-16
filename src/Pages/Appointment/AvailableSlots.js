@@ -1,16 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import { format } from 'date-fns';
+import React, { useState } from 'react';
+import Loading from '../Shared/Loading';
 import AvailableSlotsCard from './AvailableSlotsCard';
 import BookingModal from './BookingModal';
+import { useQuery } from 'react-query';
 
 const AvailableSlots = ({ date }) => {
-    const [services, setServices] = useState([]);
     const [treatment, setTreatment] = useState(null)
 
-    useEffect(() => {
-        fetch("http://localhost:5000/service")
+    const formattedDate = format(date, "PP");
+    const { data: services, isLoading, refetch } = useQuery(["available", formattedDate], () =>
+        fetch(`http://localhost:5000/available?date=${formattedDate}`)
             .then(res => res.json())
-            .then(data => setServices(data))
-    }, [])
+    )
+    if (isLoading) {
+        return <Loading></Loading>
+    }
 
 
 
@@ -19,7 +24,7 @@ const AvailableSlots = ({ date }) => {
             <h2 className='text-xl text-secondary font-bold text-center hidden lg:block my-10'>Available slots for Teeth Orthodontics.</h2>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
                 {
-                    services.map(service =>
+                    services?.map(service =>
                         <AvailableSlotsCard key={service._id}
                             service={service}
                             setTreatment={setTreatment}
@@ -31,6 +36,7 @@ const AvailableSlots = ({ date }) => {
                 date={date}
                 treatment={treatment}
                 setTreatment={setTreatment}
+                refetch={refetch}
             ></BookingModal>}
         </div>
     );
