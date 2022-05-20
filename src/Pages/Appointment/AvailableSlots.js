@@ -10,7 +10,7 @@ const AvailableSlots = ({ date }) => {
 
     const formattedDate = format(date, "PP");
     const { data: services, isLoading, refetch } = useQuery(["available", formattedDate], () =>
-        fetch(`http://localhost:5000/available?date=${formattedDate}`)
+        fetch(`https://ancient-hollows-89745.herokuapp.com/available?date=${formattedDate}`)
             .then(res => res.json())
     )
     if (isLoading) {
